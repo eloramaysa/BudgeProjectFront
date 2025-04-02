@@ -1,16 +1,16 @@
 //import { ChevronDown, ChevronRight } from 'lucide-react';
 import { useNavigate, useLocation } from "react-router-dom";
 import TransactionalHistory from "./TransactionalHistory";
-
+import FinancialTarget from "./FinancialTarget";
 const DetailedFinancialDashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userId = location.state?.userId;
-  console.log(userId);
 
   return (
     <>
-      <TransactionalHistory />
+      <FinancialTarget/>
+      <TransactionalHistory userId={userId}/>
       <div
         style={{
           display: "flex",

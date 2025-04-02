@@ -30,7 +30,7 @@ const RegisterFinancialTransaction: React.FC = () => {
   const location = useLocation();
   const userId = location.state?.userId;
   const [bills, setBills] = useState<FixedBillDto[]>([]);
-  const [transactionals, setTransactional] = useState<
+  const [transactionalDescription, setTransactionalDescription] = useState<
   TransactionalDescriptionDto[]
   >([]);
   const [transaction, setTransaction] = useState<FinancialTransactionData>({
@@ -52,7 +52,8 @@ const RegisterFinancialTransaction: React.FC = () => {
     const fetchTransactional = async () => {
       const result =
         await transactionalDescriptionService.getTransactionalByUser(userId);
-      setTransactional(result.data);
+        console.log(result.data);
+      setTransactionalDescription(result.data);
     };
 
     fetchBills();
@@ -165,8 +166,8 @@ const RegisterFinancialTransaction: React.FC = () => {
                 }))
               }
             >
-              {transactionals.length > 0 ? (
-                transactionals.map((transactional) => (
+              {transactionalDescription.length > 0 ? (
+                transactionalDescription.map((transactional) => (
                   <MenuItem key={transactional.id} value={transactional.id}>
                     {transactional.transactionalDescription}
                   </MenuItem>
@@ -180,12 +181,12 @@ const RegisterFinancialTransaction: React.FC = () => {
             <FormControl fullWidth sx={{ mb: 2 }}>
               <InputLabel>Conta fixa</InputLabel>
               <Select
-                value={transaction.transactionalDescriptionId}
+                value={transaction.fixedBillId}
                 label="Conta fixa"
                 onChange={(e) =>
                   setTransaction((prev) => ({
                     ...prev,
-                    transactionalDescriptionId: e.target.value as string,
+                    fixedBillId: e.target.value as string,
                   }))
                 }
               >

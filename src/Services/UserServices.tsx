@@ -6,6 +6,7 @@ import {
   UserFormData,
   LoginUserFormData,
   TransactionalDescriptionData,
+  FinancialTargetData, 
 } from "../Utils/Interfaces";
 
 export const userService = {
@@ -242,6 +243,76 @@ async createTransactional(transactionalDescriptionData: TransactionalDescription
         return {
           success: false,
           message: data.message || "Erro ao buscar os tipos de transações",
+        };
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      return {
+        success: false,
+        message: "Erro de conexão com o servidor",
+      };
+    }
+  },
+}
+
+export const financialTargetService = {
+  async createFinancialTarget(financialTargetData: FinancialTargetData): Promise<ApiResponse> {
+    try {
+      const response = await fetch("https://localhost:44361/api/BudgetTarget", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(financialTargetData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        return {
+          success: true,
+          data: data,
+        };
+      } else {
+        return {
+          success: false,
+          message: data.message || "Erro ao cadastrar tipo de transação",
+        };
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      return {
+        success: false,
+        message: "Erro de conexão com o servidor",
+      };
+    }
+  },
+
+  async getFinancialTarget(userId: string): Promise<ApiResponse> {
+    try {
+      const response = await fetch(
+        `https://localhost:44361/api/BudgetTarget/user/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        return {
+          success: true,
+          data: data,
+        };
+      } else {
+        return {
+          success: false,
+          message: data.message || "Erro ao buscar contas fixas",
         };
       }
     } catch (error) {

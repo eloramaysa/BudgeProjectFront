@@ -55,3 +55,18 @@ export interface TransactionalDescriptionDto {
   userId: string;
   transactionalDescription: string;
 }
+
+export interface FinancialTargetData{
+  userId: string;
+  descriptionTarget: string;
+  endValue: number;
+  totalValue: number;
+}
+
+export interface FinancialTargetDto{
+  id: string;
+  userId: string;
+  descriptionTarget: string;
+  endValue: number;
+  totalValue: number;
+}
