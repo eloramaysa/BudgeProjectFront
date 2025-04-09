@@ -31,7 +31,7 @@ interface MetaFinanceira {
 const FinancialTarget: React.FC = () => {
   const location = useLocation();
   const userId = location.state?.userId;
-
+console.log(userId);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [metas, setMetas] = useState<MetaFinanceira[]>([]);
